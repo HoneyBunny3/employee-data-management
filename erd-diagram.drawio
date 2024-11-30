@@ -109,7 +109,7 @@
             <mxRectangle width="79" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Qf7x0E1dqHhBOgiYK0y1-208" value="departmentID (FK)" style="shape=partialRectangle;html=1;connectable=0;fillColor=default;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;strokeColor=default;fontSize=12;labelBackgroundColor=default;gradientColor=none;perimeterSpacing=0;shadow=0;gradientDirection=north;labelBorderColor=none;fontFamily=Roboto;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DRoboto;whiteSpace=wrap;" vertex="1" parent="Qf7x0E1dqHhBOgiYK0y1-206">
+        <mxCell id="Qf7x0E1dqHhBOgiYK0y1-208" value="departmentID (FK to Departments)" style="shape=partialRectangle;html=1;connectable=0;fillColor=default;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;strokeColor=default;fontSize=12;labelBackgroundColor=default;gradientColor=none;perimeterSpacing=0;shadow=0;gradientDirection=north;labelBorderColor=none;fontFamily=Roboto;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DRoboto;whiteSpace=wrap;" vertex="1" parent="Qf7x0E1dqHhBOgiYK0y1-206">
           <mxGeometry x="79" width="240" height="30" as="geometry">
             <mxRectangle width="240" height="30" as="alternateBounds" />
           </mxGeometry>
@@ -122,7 +122,7 @@
             <mxRectangle width="79" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Qf7x0E1dqHhBOgiYK0y1-211" value="managerID (FK, NULLABLE for top-level managers)" style="shape=partialRectangle;html=1;connectable=0;fillColor=default;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;strokeColor=default;fontSize=12;labelBackgroundColor=default;gradientColor=none;perimeterSpacing=0;shadow=0;gradientDirection=north;labelBorderColor=none;fontFamily=Roboto;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DRoboto;whiteSpace=wrap;" vertex="1" parent="Qf7x0E1dqHhBOgiYK0y1-209">
+        <mxCell id="Qf7x0E1dqHhBOgiYK0y1-211" value="managerID (FK to Employees.employeeID, NULLABLE for top-level managers)" style="shape=partialRectangle;html=1;connectable=0;fillColor=default;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;strokeColor=default;fontSize=12;labelBackgroundColor=default;gradientColor=none;perimeterSpacing=0;shadow=0;gradientDirection=north;labelBorderColor=none;fontFamily=Roboto;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DRoboto;whiteSpace=wrap;" vertex="1" parent="Qf7x0E1dqHhBOgiYK0y1-209">
           <mxGeometry x="79" width="240" height="30" as="geometry">
             <mxRectangle width="240" height="30" as="alternateBounds" />
           </mxGeometry>
@@ -1178,7 +1178,7 @@
             <mxRectangle width="79" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Qf7x0E1dqHhBOgiYK0y1-565" value="performedBy (FK to Employees)" style="shape=partialRectangle;html=1;connectable=0;fillColor=default;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;strokeColor=default;fontSize=12;labelBackgroundColor=default;gradientColor=none;perimeterSpacing=0;shadow=0;gradientDirection=north;labelBorderColor=none;fontFamily=Roboto;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DRoboto;whiteSpace=wrap;" vertex="1" parent="Qf7x0E1dqHhBOgiYK0y1-563">
+        <mxCell id="Qf7x0E1dqHhBOgiYK0y1-565" value="employeeID (FK to Employees)" style="shape=partialRectangle;html=1;connectable=0;fillColor=default;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;strokeColor=default;fontSize=12;labelBackgroundColor=default;gradientColor=none;perimeterSpacing=0;shadow=0;gradientDirection=north;labelBorderColor=none;fontFamily=Roboto;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DRoboto;whiteSpace=wrap;" vertex="1" parent="Qf7x0E1dqHhBOgiYK0y1-563">
           <mxGeometry x="79" width="240" height="30" as="geometry">
             <mxRectangle width="240" height="30" as="alternateBounds" />
           </mxGeometry>
