@@ -5,7 +5,7 @@
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="Qf7x0E1dqHhBOgiYK0y1-11" value="Employee Data ERD" style="text;html=1;fontSize=30;fontStyle=1;verticalAlign=middle;align=center;fillColor=#d5e8d4;strokeColor=#82b366;labelBackgroundColor=default;gradientColor=#97d077;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="10" y="40" width="1990" height="40" as="geometry" />
+          <mxGeometry x="10" y="40" width="2030" height="40" as="geometry" />
         </mxCell>
         <mxCell id="Qf7x0E1dqHhBOgiYK0y1-34" value="Employees" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;strokeColor=#82b366;fontSize=16;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];labelBackgroundColor=default;whiteSpace=wrap;fillColor=#d5e8d4;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="850" y="400" width="319" height="360" as="geometry" />
