@@ -1,182 +1,138 @@
-# Entity Relationships Explained
+<div style="text-align: center;">
+<h1 style="font-weight: bold;">Entity Relationships Explained</h1>
+</div>
 
-## **Employees → Departments**
-- **Type**: One-to-Many
-- **Key Columns**: `Employees.departmentID → Departments.departmentID`
-- **Explanation**:
-  - Each employee belongs to one department.
-  - A department can have multiple employees.
-- **Real-World Example**:
-  - An HR department can have multiple employees, but each employee works in only one department.
+## **Entities and Relationships**
 
----
+### **Employees and Departments**
+Employees are the cornerstone of this system. Each employee is assigned to a single department, while a department can host multiple employees. This one-to-many relationship is crucial for managing organizational structure.
 
-## **Employees → Roles**
-- **Type**: One-to-Many
-- **Key Columns**: `Employees.roleID → Roles.roleID`
-- **Explanation**:
-  - Each employee has one assigned role.
-  - A role can be assigned to multiple employees.
-- **Real-World Example**:
-  - Alice is assigned the "Software Engineer" role, while Bob is assigned the "Data Analyst" role.
+- **Type**: One-to-Many  
+- **Key Columns**: `Employees.departmentID → Departments.departmentID`  
+- **Real-World Example**:  
+  - The HR department manages multiple employees, but each employee works under only one department.
 
 ---
 
-## **Employees → Employees (Self-Referencing)**
-- **Type**: One-to-Many
-- **Key Columns**: `Employees.managerID → Employees.employeeID`
-- **Explanation**:
-  - Employees may report to a manager, who is also an employee.
-  - A top-level manager will have a `NULL` value in `managerID`.
-- **Real-World Example**:
-  - An employee reports to their manager, and the manager reports to a senior manager, creating a hierarchy.
+### **Employees and Roles**
+Each employee has a role within the organization, such as "Software Engineer" or "Manager." A single role can be assigned to multiple employees.
+
+- **Type**: One-to-Many  
+- **Key Columns**: `Employees.roleID → Roles.roleID`  
+- **Real-World Example**:  
+  - The "Manager" role applies to several employees overseeing their respective teams.
 
 ---
 
-## **Departments → Regional Offices**
-- **Type**: One-to-Many
-- **Key Columns**: `Departments.location → RegionalOffices.officeID`
-- **Explanation**:
-  - Each department is based in one regional office.
-  - A regional office can host multiple departments.
-- **Real-World Example**:
+### **Employees Reporting to Managers**
+The self-referencing relationship in the Employees table allows for a hierarchy where employees report to managers. Managers themselves are employees, enabling multi-level organizational charts.
+
+- **Type**: One-to-Many (Self-Referencing)  
+- **Key Columns**: `Employees.managerID → Employees.employeeID`  
+- **Real-World Example**:  
+  - Alice reports to Bob, who is a senior manager.
+
+---
+
+### **Departments and Regional Offices**
+Departments are based in specific regional offices. Each regional office can host multiple departments.
+
+- **Type**: One-to-Many  
+- **Key Columns**: `Departments.location → RegionalOffices.officeID`  
+- **Real-World Example**:  
   - The Engineering and Sales departments are located in the Austin regional office.
 
 ---
 
-## **Employees ↔ Projects**
-- **Type**: Many-to-Many (via `Employee Projects` junction table)
-- **Key Columns**:
-  - `EmployeeProjects.employeeID → Employees.employeeID`
-  - `EmployeeProjects.projectID → Projects.projectID`
-- **Explanation**:
-  - Employees can work on multiple projects.
-  - A project can involve multiple employees.
-- **Real-World Example**:
-  - A software engineer works on both the "Mobile App Development" and "Website Redesign" projects.
+### **Employee Involvement in Projects**
+Employees can participate in multiple projects, while each project can have multiple employees contributing. This many-to-many relationship is managed through the Employee Projects junction table.
+
+- **Type**: Many-to-Many (via `Employee Projects` junction table)  
+- **Key Columns**:  
+  - `EmployeeProjects.employeeID → Employees.employeeID`  
+  - `EmployeeProjects.projectID → Projects.projectID`  
+- **Real-World Example**:  
+  - Alice works on both the "Mobile App Development" and "Website Redesign" projects.
 
 ---
 
-## **Employees ↔ Training Sessions**
-- **Type**: Many-to-Many (via `Employee Training` junction table)
-- **Key Columns**:
-  - `EmployeeTraining.employeeID → Employees.employeeID`
-  - `EmployeeTraining.trainingID → TrainingSessions.trainingID`
-- **Explanation**:
-  - Employees can participate in multiple training sessions.
-  - A training session can include multiple employees.
-- **Real-World Example**:
-  - An employee attends both "Diversity Training" and "Leadership Development" sessions.
+### **Project Tasks and Workflow Logs**
+Each project consists of scheduled tasks that break the work into manageable chunks. Workflow logs track updates, changes, and activities for these tasks, ensuring all progress is monitored.
+
+- **Type**: One-to-Many  
+- **Key Columns**:  
+  - `ScheduledTasks.projectID → Projects.projectID`  
+  - `WorkflowLogs.entityID → ScheduledTasks.taskID`  
+- **Real-World Example**:  
+  - The "Website Redesign" project has tasks like "Create Wireframes" and "Develop Frontend," with each update logged in the workflow logs.
 
 ---
 
-## **Employees ↔ Benefits**
-- **Type**: Many-to-Many (via `Employee Benefits` junction table)
-- **Key Columns**:
-  - `EmployeeBenefits.employeeID → Employees.employeeID`
-  - `EmployeeBenefits.benefitID → Benefits.benefitID`
-- **Explanation**:
-  - Employees can enroll in multiple benefit plans.
-  - A benefit plan can be available to multiple employees.
-- **Real-World Example**:
-  - An employee enrolls in both the "Health Insurance Plan" and the "401(k) Retirement Plan."
+### **Employee Training**
+Employees participate in various training sessions to enhance their skills. The Employee Training junction table connects employees to training sessions, creating a many-to-many relationship.
+
+- **Type**: Many-to-Many (via `Employee Training` junction table)  
+- **Key Columns**:  
+  - `EmployeeTraining.employeeID → Employees.employeeID`  
+  - `EmployeeTraining.trainingID → TrainingSessions.trainingID`  
+- **Real-World Example**:  
+  - Alice attended both "Leadership Development" and "Diversity Training."
 
 ---
 
-## **Projects → Employee Projects**
-- **Type**: One-to-Many
-- **Key Columns**: `EmployeeProjects.projectID → Projects.projectID`
-- **Explanation**:
-  - A project can involve multiple records in the `Employee Projects` table.
-  - Each record represents one employee's assignment to the project.
-- **Real-World Example**:
-  - The "Mobile App Development" project includes assignments for three employees: Alice, Bob, and Carol.
+### **Benefits Enrollment**
+Employees can enroll in multiple benefit plans, such as health insurance or retirement plans. This many-to-many relationship is tracked using the Employee Benefits junction table.
+
+- **Type**: Many-to-Many (via `Employee Benefits` junction table)  
+- **Key Columns**:  
+  - `EmployeeBenefits.employeeID → Employees.employeeID`  
+  - `EmployeeBenefits.benefitID → Benefits.benefitID`  
+- **Real-World Example**:  
+  - Alice is enrolled in both the "Health Insurance Plan" and the "401(k) Retirement Plan."
 
 ---
 
-## **Employees → Employee Projects**
-- **Type**: One-to-Many
-- **Key Columns**: `EmployeeProjects.employeeID → Employees.employeeID`
-- **Explanation**:
-  - An employee can have multiple records in the `Employee Projects` table.
-  - Each record represents an assignment to a specific project.
-- **Real-World Example**:
-  - Alice is assigned to two projects: "Mobile App Development" and "Website Redesign."
+### **Time Tracking**
+Time tracking captures how employees allocate their hours across tasks and projects. Each employee logs time entries, which are linked to specific projects.
+
+- **Type**: One-to-Many  
+- **Key Columns**:  
+  - `TimeTracking.employeeID → Employees.employeeID`  
+  - `TimeTracking.projectID → Projects.projectID`  
+- **Real-World Example**:  
+  - Alice logs 8 hours for the "Website Redesign" project.
 
 ---
 
-## **Training Sessions → Employee Training**
-- **Type**: One-to-Many
-- **Key Columns**: `EmployeeTraining.trainingID → TrainingSessions.trainingID`
-- **Explanation**:
-  - A training session can have multiple records in the `Employee Training` table.
-  - Each record links the session to a specific employee.
-- **Real-World Example**:
-  - The "Leadership Development" training session is attended by 20 employees.
+### **Asset Assignment**
+The system tracks company assets assigned to employees, such as laptops or phones. Each asset can be assigned to one employee or marked as available, retired, or in maintenance.
+
+- **Type**: One-to-Many  
+- **Key Columns**: `Assets.assignTo → Employees.employeeID`  
+- **Real-World Example**:  
+  - Alice is assigned a company laptop and mobile phone.
 
 ---
 
-## **Benefits → Employee Benefits**
-- **Type**: One-to-Many
-- **Key Columns**: `EmployeeBenefits.benefitID → Benefits.benefitID`
-- **Explanation**:
-  - A benefit plan can have multiple records in the `Employee Benefits` table.
-  - Each record links the plan to a specific employee.
-- **Real-World Example**:
-  - The "Health Insurance Plan" has 100 enrolled employees.
+### **Audit Logs and Access Control**
+Audit logs track all actions performed in the system, providing a complete history of changes. Access control ensures employees have the right permissions, such as admin, manager, or employee-level access.
+
+- **Audit Logs Key Columns**:  
+  - `AuditLogs.performedBy → Employees.employeeID`  
+  - `AuditLogs.entityID → ScheduledTasks.taskID`  
+- **Access Control Key Columns**:  
+  - `AccessControl.employeeID → Employees.employeeID`  
+- **Real-World Example**:  
+  - Bob, an admin, edits employee details, and the change is logged in the audit log.
 
 ---
 
-## **Projects → Workflow Logs**
-- **Type**: One-to-Many
-- **Key Columns**: `WorkflowLogs.projectID → Projects.projectID`
-- **Explanation**:
-  - Each workflow log entry belongs to one project.
-  - A project can have multiple workflow log entries.
-- **Real-World Example**:
-  - The "Mobile App Development" project tracks workflow logs for sprint planning, testing, and deployment.
+### **Reporting**
+Employees can generate reports summarizing system data, such as project progress, employee performance, or financial overviews.
 
----
-
-## **Employees → Workflow Logs**
-- **Type**: One-to-Many
-- **Key Columns**: `WorkflowLogs.employeeID → Employees.employeeID`
-- **Explanation**:
-  - Each workflow log entry is created or updated by an employee.
-  - An employee can contribute to multiple workflow logs.
-- **Real-World Example**:
-  - Alice creates workflow log entries detailing her progress on the "Mobile App Development" project.
-
----
-
-## **Workflow Logs → Audit Logs**
-- **Type**: One-to-Many
-- **Key Columns**: `AuditLogs.logID → WorkflowLogs.logID`
-- **Explanation**:
-  - Each workflow log action is tracked in the `Audit Logs` table.
-  - Audit logs ensure accountability for updates made to workflow logs.
-- **Real-World Example**:
-  - An audit log tracks when Bob updated the timeline for a task in the workflow log.
-
----
-
-## **Employees → Time Tracking**
-- **Type**: One-to-Many
-- **Key Columns**: `TimeTracking.employeeID → Employees.employeeID`
-- **Explanation**:
-  - An employee can have multiple time entries in the `Time Tracking` table.
-  - Each entry records time spent on a specific project.
-- **Real-World Example**:
-  - Alice logs 8 hours on "Mobile App Development" and 4 hours on "Website Redesign."
-
----
-
-## **Employees → Reports**
-- **Type**: One-to-Many
-- **Key Columns**: `Reports.createdBy → Employees.employeeID`
-- **Explanation**:
-  - An employee can generate multiple reports for tracking business insights.
-- **Real-World Example**:
-  - Alice generates quarterly performance and budget utilization reports.
+- **Type**: One-to-Many  
+- **Key Columns**: `Reports.createdBy → Employees.employeeID`  
+- **Real-World Example**:  
+  - Alice generates a quarterly performance review report.
 
 ---

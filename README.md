@@ -1,132 +1,178 @@
-# Employee Data Management
+<div style="text-align: center;">
+<h1 style="font-weight: bold;">Employee Data Management</h1>
+</div>
 
+## **Introduction**
 This project is designed to manage and store employee data for an organization. It allows for the tracking of employee information, including personal details, departments, roles, payroll, attendance, training, benefits, and project assignments. Additionally, the system handles asset management, workflow tracking, and audit logging for enhanced accountability.
 
 The system is intended to showcase skills in database design, data management, and system development. It demonstrates the ability to create a robust relational database schema using MySQL, including defining entities, relationships, and managing employee-related data.
 
-## Features:
+---
+
+## **Features**
 - Employee management (personal details, department, role, payroll, attendance)
 - Department and regional office tracking
 - Role and training management
 - Payroll and leave tracking
 - Asset and benefits management
 - Project assignment and tracking
+- Time tracking and leave management
+- Scheduled task management
 - Workflow logs for task progress and system process improvement
 - Audit logs for system actions
+- Comprehensive reporting for employee and organizational insights
+- Regional office support and hierarchical structuring
 
-## Getting Started
+---
+
+## **Getting Started**
 
 These instructions will help you set up the project locally for development and testing purposes.
 
-### Prerequisites:
+### **Prerequisites**
 - MySQL 8.0 or higher
 - Git
 - [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) (optional but recommended for schema design)
 
-### Installation:
+### **Installation**
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-username/employee-data-management.git
+   ```
 
-Clone the repository:
+2. **Navigate into the Project Folder**:
+   ```bash
+   cd employee-data-management
+   ```
 
-```bash
-git clone https://github.com/your-username/employee-data-management.git
-```
+3. **Set Up Your MySQL Database**:
+   - Create a new MySQL database (you can name it `employee_management`):
+     ```sql
+     CREATE DATABASE employee_management;
+     ```
+   - Import the initial database schema:
+     ```bash
+     mysql -u root -p employee_management < schema.sql
+     ```
 
-Navigate into the project folder:
+4. (Optional) Set up MySQL Workbench to visually manage the database schema.
 
-```bash
-cd employee-data-management
-```
+---
 
-Set up your MySQL database:
+## **Database Design**
 
-Create a new MySQL database (you can name it `employee_management`):
+The database is designed to store detailed information about employees, departments, roles, payroll, projects, training, benefits, assets, workflows, time tracking, and audit logging.
 
-```sql
-CREATE DATABASE employee_management;
-```
-
-Import the initial database schema (this can be added later when you finalize the design):
-
-```bash
-mysql -u root -p employee_management < schema.sql
-```
-
-(Optional) Set up MySQL Workbench to visually manage the database schema.
-
-## Database Design
-
-The database is designed to store detailed information about employees, departments, roles, payroll, projects, training, benefits, assets, and workflows.
-
-### ERD (Entity Relationship Diagram)
+### **ERD (Entity Relationship Diagram)**
 ![ERD Diagram](assets/erd/erd-diagram.png)
 
-### Entities and Relationships:
+---
 
-- **Employees**: Core entity containing personal details, linked to roles, departments, payroll, attendance, training, projects, and benefits.
-- **Departments**: Stores department information and is linked to employees, projects, and training sessions.
-- **Roles**: Tracks job roles and salary ranges, linked to employees and access control.
+### **Entities and Relationships**
+
+Below is a detailed list of all **20 tables**, logically grouped by functionality:
+
+#### **Core Entities**
+- **Employees**: Stores personal and professional employee data. Core entity linked to all other major functionalities.
+- **Departments**: Tracks organizational departments and their locations.
+- **Roles**: Stores job roles and salary ranges for employees.
+- **Regional Offices**: Tracks physical office locations globally.
+
+#### **Payroll and Benefits**
 - **Payroll**: Tracks salary payments and deductions for employees.
-- **Projects**: Contains project details, linked to departments and employees.
-- **Training Sessions**: Tracks training programs and employee participation.
-- **Benefits**: Tracks benefit plans available to employees.
-- **Assets**: Tracks organizational assets and their assignment to employees.
-- **Workflow Logs**: Tracks employee task progress and workflow status for process improvement.
-- **Audit Logs**: Records system actions performed by employees for auditing purposes.
+- **Benefits**: Lists employee benefit programs.
+- **Employee Benefits (Junction Table)**: Links employees to their enrolled benefits.
 
-### Key Relationships:
+#### **Training and Performance**
+- **Training Sessions**: Tracks training programs conducted by the organization.
+- **Employee Training (Junction Table)**: Links employees to training sessions.
+- **Performance Reviews**: Tracks employee performance evaluations.
 
-- **Employees ↔ Departments**: Many-to-One (An employee belongs to one department).
-- **Employees ↔ Roles**: Many-to-One (An employee holds one role).
-- **Employees ↔ Payroll**: One-to-Many (An employee can have many payroll records over time).
-- **Employees ↔ Training Sessions**: Many-to-Many (An employee can participate in multiple training sessions).
-- **Employees ↔ Projects**: Many-to-Many (An employee can work on multiple projects).
-- **Departments ↔ Projects**: One-to-Many (A department can have many projects).
-- **Employees ↔ Benefits**: Many-to-Many (An employee can enroll in multiple benefit plans).
-- **Employees ↔ Assets**: One-to-Many (An employee can be assigned multiple assets).
-- **Employees ↔ Workflow Logs**: One-to-Many (An employee creates multiple workflow logs).
-- **Workflow Logs ↔ Audit Logs**: One-to-Many (Audit logs track workflow log updates).
+#### **Projects and Tasks**
+- **Projects**: Stores project details for organizational initiatives.
+- **Employee Projects (Junction Table)**: Links employees to projects.
+- **Scheduled Tasks**: Tracks recurring or one-time organizational tasks.
+- **Workflow Logs**: Tracks task progress and updates.
 
-## Development
+#### **Time and Leave Management**
+- **Time Tracking**: Logs work hours, breaks, and overtime for employees.
+- **Leave Management**: Tracks employee leave requests and approvals.
 
-### Employee Table Implementation:
+#### **Assets and System Management**
+- **Assets**: Tracks organizational assets assigned to employees.
+- **Access Control**: Manages system roles and permissions for employees.
+- **Audit Logs**: Records system actions for accountability.
+
+#### **Reporting and Logs**
+- **Reports**: Tracks reports generated for organizational data insights.
+- **Audit Logs**: Tracks system changes and actions for security purposes.
+
+---
+
+### **Key Relationships**
+
+- **Employees ↔ Departments**: One-to-Many
+- **Employees ↔ Roles**: One-to-Many
+- **Employees ↔ Payroll**: One-to-Many
+- **Employees ↔ Benefits**: Many-to-Many
+- **Employees ↔ Projects**: Many-to-Many
+- **Employees ↔ Time Tracking**: One-to-Many
+- **Departments ↔ Projects**: One-to-Many
+- **Scheduled Tasks ↔ Workflow Logs**: One-to-Many
+- **Workflow Logs ↔ Audit Logs**: One-to-Many
+
+---
+
+## **Development**
+
+### **Employee Table Implementation**
 The **Employees** table includes the following columns:
 - `employeeID`, `firstName`, `lastName`, `email`, `phone`, `hireDate`, `departmentID`, `roleID`, `managerID`, `status`, `address`.
 
-### Next Steps:
-- Implement remaining tables like **Departments**, **Roles**, **Payroll**, **Projects**, **Training Sessions**, **Benefits**, and **Workflow Logs**.
-- Write scripts to insert sample data into all tables.
-- Test CRUD (Create, Read, Update, Delete) operations for managing employee data.
-- Test JOIN queries for generating reports across entities.
-- Validate workflow logs and audit log generation for task and system action tracking.
+### **Reporting**
+The system enables the generation of comprehensive reports, using SQL JOIN queries across multiple tables, including but not limited to:
+- Employee attendance
+- Payroll summaries
+- Department performance
 
-## Contributing
+---
 
-Fork the repository:
+### **Next Steps**
+1. Complete data entry scripts for all 20 tables.
+2. Test CRUD (Create, Read, Update, Delete) operations.
+3. Design SQL queries for reports combining data across tables.
+4. Validate relationships and indexing to optimize performance.
 
-```bash
-git clone https://github.com/your-username/employee-data-management.git
-```
+---
 
-Create your feature branch:
+## **Contributing**
 
-```bash
-git checkout -b feature-name
-```
+1. **Fork the Repository**:
+   ```bash
+   git clone https://github.com/your-username/employee-data-management.git
+   ```
 
-Commit your changes:
+2. **Create Your Feature Branch**:
+   ```bash
+   git checkout -b feature-name
+   ```
 
-```bash
-git commit -am "Add new feature"
-```
+3. **Commit Your Changes**:
+   ```bash
+   git commit -am "Add new feature"
+   ```
 
-Push to the branch:
+4. **Push to the Branch**:
+   ```bash
+   git push origin feature-name
+   ```
 
-```bash
-git push origin feature-name
-```
+5. **Create a New Pull Request** via GitHub.
 
-Create a new Pull Request via GitHub.
+---
 
-## License
+## **License**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
