@@ -70,64 +70,62 @@ The database is designed to store detailed information about employees, departme
 
 ### **Entities and Relationships**
 
-Below is a detailed list of all **20 tables**, logically grouped by functionality:
-
 #### **Core Entities**
-- **Employees**: Stores personal and professional employee data. Core entity linked to all other major functionalities.
-- **Departments**: Tracks organizational departments and their locations.
-- **Roles**: Stores job roles and salary ranges for employees.
-- **Regional Offices**: Tracks physical office locations globally.
+- **employees**: Stores personal and professional employee data. Core entity linked to all other major functionalities.
+- **departments**: Tracks organizational departments and their locations.
+- **roles**: Stores job roles and salary ranges for employees.
+- **regional_offices**: Tracks physical office locations globally.
 
 #### **Payroll and Benefits**
-- **Payroll**: Tracks salary payments and deductions for employees.
-- **Benefits**: Lists employee benefit programs.
-- **Employee Benefits (Junction Table)**: Links employees to their enrolled benefits.
+- **payroll**: Tracks salary payments and deductions for employees.
+- **benefits**: Lists employee benefit programs.
+- **employee_benefits (Junction Table)**: Links employees to their enrolled benefits.
 
 #### **Training and Performance**
-- **Training Sessions**: Tracks training programs conducted by the organization.
-- **Employee Training (Junction Table)**: Links employees to training sessions.
-- **Performance Reviews**: Tracks employee performance evaluations.
+- **training_sessions**: Tracks training programs conducted by the organization.
+- **employee_training (Junction Table)**: Links employees to training sessions.
+- **performance_reviews**: Tracks employee performance evaluations.
 
 #### **Projects and Tasks**
-- **Projects**: Stores project details for organizational initiatives.
-- **Employee Projects (Junction Table)**: Links employees to projects.
-- **Scheduled Tasks**: Tracks recurring or one-time organizational tasks.
-- **Workflow Logs**: Tracks task progress and updates.
+- **projects**: Stores project details for organizational initiatives.
+- **employee_projects (Junction Table)**: Links employees to projects.
+- **scheduled_tasks**: Tracks recurring or one-time organizational tasks.
+- **workflow_logs**: Tracks task progress and updates.
 
 #### **Time and Leave Management**
-- **Time Tracking**: Logs work hours, breaks, and overtime for employees.
-- **Leave Management**: Tracks employee leave requests and approvals.
+- **time_tracking**: Logs work hours, breaks, and overtime for employees.
+- **leave_management**: Tracks employee leave requests and approvals.
 
 #### **Assets and System Management**
-- **Assets**: Tracks organizational assets assigned to employees.
-- **Access Control**: Manages system roles and permissions for employees.
-- **Audit Logs**: Records system actions for accountability.
+- **assets**: Tracks organizational assets assigned to employees.
+- **access_control**: Manages system roles and permissions for employees.
+- **audit_logs**: Records system actions for accountability.
 
 #### **Reporting and Logs**
-- **Reports**: Tracks reports generated for organizational data insights.
-- **Audit Logs**: Tracks system changes and actions for security purposes.
+- **reports**: Tracks reports generated for organizational data insights.
+- **audit_logs**: Tracks system changes and actions for security purposes.
 
 ---
 
 ### **Key Relationships**
 
-- **Employees ↔ Departments**: One-to-Many
-- **Employees ↔ Roles**: One-to-Many
-- **Employees ↔ Payroll**: One-to-Many
-- **Employees ↔ Benefits**: Many-to-Many
-- **Employees ↔ Projects**: Many-to-Many
-- **Employees ↔ Time Tracking**: One-to-Many
-- **Departments ↔ Projects**: One-to-Many
-- **Scheduled Tasks ↔ Workflow Logs**: One-to-Many
-- **Workflow Logs ↔ Audit Logs**: One-to-Many
+- **employees ↔ departments**: One-to-Many
+- **employees ↔ roles**: One-to-Many
+- **employees ↔ payroll**: One-to-Many
+- **employees ↔ benefits**: Many-to-Many
+- **employees ↔ projects**: Many-to-Many
+- **employees ↔ time_tracking**: One-to-Many
+- **departments ↔ projects**: One-to-Many
+- **scheduled Tasks ↔ workflow_logs**: One-to-Many
+- **workflow Logs ↔ audit_logs**: One-to-Many
 
 ---
 
 ## **Development**
 
 ### **Employee Table Implementation**
-The **Employees** table includes the following columns:
-- `employeeID`, `firstName`, `lastName`, `email`, `phone`, `hireDate`, `departmentID`, `roleID`, `managerID`, `status`, `address`.
+The **employees** table includes the following columns:
+- `employee_id`, `first_name`, `last_name`, `email`, `phone`, `hire_date`, `department_id`, `role_id`, `manager_id`, `status`, `address`.
 
 ### **Reporting**
 The system enables the generation of comprehensive reports, using SQL JOIN queries across multiple tables, including but not limited to:

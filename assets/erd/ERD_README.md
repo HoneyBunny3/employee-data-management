@@ -25,264 +25,267 @@ The ERD visualizes the relational structure of the database. Below is a descript
 
 ## **Entity Descriptions and Attributes**
 
-### **Employees**
-- **Primary Key**: `employeeID` (AUTO_INCREMENT, NOT NULLABLE)
+### **employees**
+- **Primary Key**: `employee_id` (AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `firstName` (VARCHAR(50), NOT NULLABLE)
-  - `lastName` (VARCHAR(50), NOT NULLABLE)
-  - `email` (VARCHAR(100), UNIQUE, NOT NULLABLE)
-  - `phone` (VARCHAR(15), NULLABLE)
-  - `hireDate` (DATE, NOT NULLABLE)
-  - `jobTitle` (VARCHAR(50), NOT NULLABLE)
-  - `status` (ENUM: `Active`, `Inactive`, NOT NULLABLE)
-  - `address` (VARCHAR(255), NULLABLE)
+  - `first_name` (VARCHAR(50), NOT NULL)
+  - `last_name` (VARCHAR(50), NOT NULL)
+  - `email` (VARCHAR(100), UNIQUE, NOT NULL)
+  - `phone` (VARCHAR(15), NULL)
+  - `hire_date` (DATE, NOT NULL)
+  - `job_title` (VARCHAR(50), NOT NULL)
+  - `status` (ENUM: `active`, `inactive`, NOT NULL)
+  - `address` (VARCHAR(255), NULL)
+- **Foreign Keys**:
+  - `department_id` (FK to `departments`, NOT NULL)
+  - `role_id` (FK to `roles`, NOT NULL)
+  - `manager_id` (Self-referencing FK to `employees`, NULL for top-level managers)
+
+---
+
+### **departments**
+- **Primary Key**: `department_id` (AUTO_INCREMENT, NOT NULL)
+- **Attributes**:
+  - `department_name` (VARCHAR(100), NOT NULL)
+- **Foreign Keys**:
+  - `location_id` (FK to `regional_offices`, NOT NULL)
+  - `manager_id` (FK to `employees`, NULL)
+
+---
+
+### **regional_offices**
+- **Primary Key**: `office_id` (AUTO_INCREMENT, NOT NULL)
+- **Attributes**:
+  - `region_name` (VARCHAR(50), NOT NULL)
+  - `country` (VARCHAR(50), NOT NULL)
+  - `currency` (VARCHAR(10), NOT NULL)
+  - `address` (VARCHAR(255), NOT NULL)
+
+---
+
+### **roles**
+- **Primary Key**: `role_id` (AUTO_INCREMENT, NOT NULL)
+- **Attributes**:
+  - `role_name` (VARCHAR(50), NOT NULL)
+  - `salary_range_min` (DECIMAL(10, 2), NOT NULL)
+  - `salary_range_max` (DECIMAL(10, 2), NOT NULL)
+  - `description` (TEXT, NULL)
+
+---
+
+### **training_sessions**
+- **Primary Key**: `training_id` (AUTO_INCREMENT, NOT NULL)
+- **Attributes**:
+  - `topic` (VARCHAR(100), NOT NULL)
+  - `description` (TEXT, NULL)
+  - `date` (DATE, NOT NULL)
+  - `duration` (INT, NOT NULL, in hours)
+  - `instructor` (VARCHAR(100), NULL)
 - **Foreign Key**:
-  - `departmentID` (FK to Departments, NOT NULLABLE)
-  - `roleID` (FK to Roles, NOT NULLABLE)
-  - `managerID` (Self-referencing FK to Employees, NULLABLE for top-level managers)
+  - `department_id` (FK to `departments`, NOT NULL)
 
 ---
 
-### **Departments**
-- **Primary Key**: `departmentID` (AUTO_INCREMENT, NOT NULLABLE)
+### **employee_training**
+- **Primary Key**: `employee_training_id` (AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `departmentName` (VARCHAR(100), NOT NULLABLE)
+  - `completion_status` (ENUM: `completed`, `pending`, `failed`, NOT NULL)
+  - `date_completed` (DATE, NULL)
+- **Foreign Keys**:
+  - `employee_id` (FK to `employees`, NOT NULL)
+  - `training_id` (FK to `training_sessions`, NOT NULL)
+
+---
+
+### **benefits**
+- **Primary Key**: `benefit_id` (AUTO_INCREMENT, NOT NULL)
+- **Attributes**:
+  - `benefit_name` (VARCHAR(100), NOT NULL)
+  - `description` (TEXT, NULL)
+  - `cost_to_company` (DECIMAL(10, 2), NOT NULL)
+  - `eligibility_criteria` (TEXT, NULL)
+
+---
+
+### **employee_benefits**
+- **Primary Key**: `employee_benefit_id` (AUTO_INCREMENT, NOT NULL)
+- **Attributes**:
+  - `enrollment_date` (DATE, NOT NULL)
+  - `status` (ENUM: `active`, `inactive`, NOT NULL)
+- **Foreign Keys**:
+  - `employee_id` (FK to `employees`, NOT NULL)
+  - `benefit_id` (FK to `benefits`, NOT NULL)
+
+---
+
+### **projects**
+- **Primary Key**: `project_id` (AUTO_INCREMENT, NOT NULL)
+- **Attributes**:
+  - `project_name` (VARCHAR(100), NOT NULL)
+  - `start_date` (DATE, NOT NULL)
+  - `end_date` (DATE, NULL)
+  - `budget` (DECIMAL(15, 2), NULL)
 - **Foreign Key**:
-  - `location` (FK to Regional Offices, NOT NULLABLE)
-  - `managerID` (FK to Employees, NULLABLE)
+  - `department_id` (FK to `departments`, NOT NULL)
 
 ---
 
-### **Regional Offices**
-- **Primary Key**: `officeID` (AUTO_INCREMENT, NOT NULLABLE)
+### **employee_projects**
+- **Primary Key**: `employee_project_id` (AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `regionName` (VARCHAR(50), NOT NULLABLE)
-  - `country` (VARCHAR(50), NOT NULLABLE)
-  - `currency` (VARCHAR(10), NOT NULLABLE)
-  - `address` (VARCHAR(255), NOT NULLABLE)
+  - `role_in_project` (VARCHAR(100), NULL)
+  - `hours_allocated` (DECIMAL(5, 2), NULL)
+- **Foreign Keys**:
+  - `employee_id` (FK to `employees`, NOT NULL)
+  - `project_id` (FK to `projects`, NOT NULL)
 
 ---
 
-### **Roles**
-- **Primary Key**: `roleID` (AUTO_INCREMENT, NOT NULLABLE)
+### **payroll**
+- **Primary Key**: `payroll_id` (AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `roleName` (VARCHAR(50), NOT NULLABLE)
-  - `salaryRangeMin` (DECIMAL(10, 2), NOT NULLABLE)
-  - `salaryRangeMax` (DECIMAL(10, 2), NOT NULLABLE)
-  - `description` (TEXT, NULLABLE)
-
----
-
-### **Training Sessions**
-- **Primary Key**: `trainingID` (AUTO_INCREMENT, NOT NULLABLE)
-- **Attributes**:
-  - `topic` (VARCHAR(100), NOT NULLABLE)
-  - `description` (TEXT, NULLABLE)
-  - `date` (DATE, NOT NULLABLE)
-  - `duration` (INT, NOT NULLABLE, in hours)
-  - `instructor` (VARCHAR(100), NULLABLE)
+  - `payment_date` (DATE, NOT NULL)
+  - `gross_salary` (DECIMAL(10, 2), NOT NULL)
+  - `tax_deductions` (DECIMAL(10, 2), NULL)
+  - `net_salary` (DECIMAL(10, 2), NOT NULL)
+  - `payment_status` (ENUM: `processed`, `failed`, NOT NULL)
 - **Foreign Key**:
-  - `departmentID` (FK to Departments, NOT NULLABLE)
+  - `employee_id` (FK to `employees`, NOT NULL)
 
 ---
 
-### **Employee Training**
-- **Primary Key**: `employeeTrainingID` (AUTO_INCREMENT, NOT NULLABLE)
+### **time_tracking**
+- **Primary Key**: `time_entry_id` (AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `completionStatus` (ENUM: `Completed`, `In Progress`, `Not Started`, NOT NULLABLE)
-  - `dateCompleted` (DATE, NULLABLE)
+  - `date` (DATE, NOT NULL)
+  - `hours_worked` (DECIMAL(5, 2), NOT NULL)
+  - `task_description` (TEXT, NULL)
+- **Foreign Keys**:
+  - `employee_id` (FK to `employees`, NOT NULL)
+  - `project_id` (FK to `projects`, NOT NULL)
+
+---
+
+### **leave_management**
+- **Primary Key**: `leave_id` (AUTO_INCREMENT, NOT NULL)
+- **Attributes**:
+  - `leave_type` (ENUM: `sick`, `vacation`, `unpaid`, `other`, NOT NULL)
+  - `start_date` (DATE, NOT NULL)
+  - `end_date` (DATE, NOT NULL)
+  - `approval_status` (ENUM: `approved`, `pending`, `rejected`, NOT NULL)
 - **Foreign Key**:
-  - `employeeID` (FK to Employees, NOT NULLABLE)
-  - `trainingID` (FK to Training Sessions, NOT NULLABLE)
+  - `employee_id` (FK to `employees`, NOT NULL)
 
 ---
 
-### **Benefits**
-- **Primary Key**: `benefitID` (AUTO_INCREMENT, NOT NULLABLE)
+### **performance_reviews**
+- **Primary Key**: `review_id` (AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `benefitName` (VARCHAR(100), NOT NULLABLE)
-  - `description` (TEXT, NULLABLE)
-  - `costToCompany` (DECIMAL(10, 2), NOT NULLABLE)
-  - `eligibilityCriteria` (TEXT, NULLABLE)
+  - `review_date` (DATE, NOT NULL)
+  - `overall_score` (DECIMAL(4, 2), NULL)
+  - `comments` (TEXT, NULL)
+- **Foreign Keys**:
+  - `employee_id` (FK to `employees`, NOT NULL)
+  - `manager_id` (FK to `employees`, NOT NULL)
 
 ---
 
-### **Employee Benefits**
-- **Primary Key**: `employeeBenefitID` (AUTO_INCREMENT, NOT NULLABLE)
+### **assets**
+- **Primary Key**: `asset_id` (AUTO_INCREMENT, NOT NULLABLE)
 - **Attributes**:
-  - `enrollmentDate` (DATE, NOT NULLABLE)
-  - `status` (ENUM: `Active`, `Inactive`, NOT NULLABLE)
-- **Foreign Key**:
-  - `employeeID` (FK to Employees, NOT NULLABLE)
-  - `benefitID` (FK to Benefits, NOT NULLABLE)
-
----
-
-### **Projects**
-- **Primary Key**: `projectID` (AUTO_INCREMENT, NOT NULLABLE)
-- **Attributes**:
-  - `projectName` (VARCHAR(100), NOT NULLABLE)
-  - `startDate` (DATE, NOT NULLABLE)
-  - `endDate` (DATE, NULLABLE)
-  - `budget` (DECIMAL(15, 2), NULLABLE)
-- **Foreign Key**:
-  - `departmentID` (FK to Departments, NOT NULLABLE)
-
----
-
-### **Employee Projects**
-- **Primary Key**: `employeeProjectID` (AUTO_INCREMENT, NOT NULLABLE)
-- **Attributes**:
-  - `roleInProject` (VARCHAR(100), NULLABLE)
-  - `hoursAllocated` (DECIMAL(5, 2), NULLABLE)
-- **Foreign Key**:
-  - `employeeID` (FK to Employees, NOT NULLABLE)
-  - `projectID` (FK to Projects, NOT NULLABLE)
-
----
-
-### **Payroll**
-- **Primary Key**: `payrollID` (AUTO_INCREMENT, NOT NULLABLE)
-- **Attributes**:
-  - `paymentDate` (DATE, NOT NULLABLE)
-  - `grossSalary` (DECIMAL(10, 2), NOT NULLABLE)
-  - `taxDeductions` (DECIMAL(10, 2), NULLABLE)
-  - `netSalary` (DECIMAL(10, 2), NOT NULLABLE)
-  - `paymentStatus` (ENUM: `Pending`, `Paid`, `Failed`, NOT NULLABLE)
-- **Foreign Key**:
-  - `employeeID` (FK to Employees, NOT NULLABLE)
-
----
-
-### **Time Tracking**
-- **Primary Key**: `timeEntryID` (AUTO_INCREMENT, NOT NULLABLE)
-- **Attributes**:
-  - `date` (DATE, NOT NULLABLE)
-  - `hoursWorked` (DECIMAL(5, 2), NOT NULLABLE)
-  - `taskDescription` (TEXT, NULLABLE)
-- **Foreign Key**:
-  - `employeeID` (FK to Employees, NOT NULLABLE)
-  - `projectID` (FK to Projects, NOT NULLABLE)
-
----
-
-### **Leave Management**
-- **Primary Key**: `leaveID` (AUTO_INCREMENT, NOT NULLABLE)
-- **Attributes**:
-  - `leaveType` (ENUM: `Sick`, `Vacation`, `Unpaid`, `Other`, NOT NULLABLE)
-  - `startDate` (DATE, NOT NULLABLE)
-  - `endDate` (DATE, NOT NULLABLE)
-  - `approvalStatus` (ENUM: `Pending`, `Approved`, `Rejected`, NOT NULLABLE)
-- **Foreign Key**:
-  - `employeeID` (FK to Employees, NOT NULLABLE)
-
----
-
-### **Performance Reviews**
-- **Primary Key**: `reviewID` (AUTO_INCREMENT, NOT NULLABLE)
-- **Attributes**:
-  - `reviewDate` (DATE, NOT NULLABLE)
-  - `overallScore` (DECIMAL(3, 2), NULLABLE)
-  - `comments` (TEXT, NULLABLE)
-- **Foreign Key**:
-  - `employeeID` (FK to Employees, NOT NULLABLE)
-  - `managerID` (FK to Employees, NOT NULLABLE)
-
----
-
-### **Assets**
-- **Primary Key**: `assetID` (AUTO_INCREMENT, NOT NULLABLE)
-- **Attributes**:
-  - `assetName` (VARCHAR(100), NOT NULLABLE)
-  - `assetType` (ENUM: `Desktop`, `Laptop`, `Tablet`, `Phone`, NOT NULLABLE)
-  - `purchaseDate` (DATE, NOT NULLABLE)
-  - `assignTo` (FK to Employees, NULLABLE)
+  - `asset_name` (VARCHAR(100), NOT NULLABLE)
+  - `asset_type` (ENUM: `Desktop`, `Laptop`, `Tablet`, `Phone`, NOT NULLABLE)
+  - `purchase_date` (DATE, NOT NULLABLE)
+  - `assign_to` (FK to employees, NULLABLE)
   - `status` (ENUM: `Assigned`, `Available`, `Maintenance`, `Retired`, NOT NULLABLE)
 
 ---
 
-### **Workflow Logs**
-- **Primary Key**: `workflowID` (AUTO_INCREMENT, NOT NULLABLE)
+### **workflow_logs**
+- **Primary Key**: `workflow_id` (AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `entityName` (VARCHAR(50), NOT NULLABLE)
-  - `entityID` (INT, NOT NULLABLE)
-  - `actionType` (ENUM: `Create`, `Update`, `Delete`, NOT NULLABLE)
-  - `status` (ENUM: `Active`, `Inactive`, NOT NULLABLE)
-  - `timestamp` (DATETIME, NOT NULLABLE)
+  - `entity_name` (VARCHAR(50), NOT NULL)
+  - `entity_id` (INT, NOT NULL)
+  - `action_type` (ENUM: `create`, `update`, `delete`, NOT NULL)
+  - `status` (ENUM: `active`, `inactive`, NOT NULL)
+  - `timestamp` (DATETIME, NOT NULL)
 - **Foreign Key**:
-  - `performedBy` (FK to Employees, NOT NULLABLE)
+  - `performed_by` (FK to `employees`, NOT NULL)
 
 ---
 
-### **Scheduled Tasks**
-- **Primary Key**: `taskID` (AUTO_INCREMENT, NOT NULLABLE)
+### **scheduled_tasks**
+- **Primary Key**: `task_id` (AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `taskName` (VARCHAR(100), NOT NULLABLE)
-  - `frequency` (ENUM: `Daily`, `Weekly`, `Monthly`, `Yearly`, NOT NULLABLE)
-  - `lastRunDate` (DATE, NULLABLE)
-  - `nextRunDate` (DATE, NULLABLE)
-  - `status` (ENUM: `Active`, `Inactive`, NOT NULLABLE)
+  - `task_name` (VARCHAR(100), NOT NULL)
+  - `frequency` (ENUM: `daily`, `weekly`, `monthly`, `yearly`, NOT NULL)
+  - `last_run_date` (DATE, NULL)
+  - `next_run_date` (DATE, NULL)
+  - `status` (ENUM: `active`, `inactive`, NOT NULL)
 
 ---
 
-### **Reports**
-- **Primary Key**: `reportID` (AUTO_INCREMENT, NOT NULLABLE)
+### **reports**
+- **Primary Key**: `report_id` (AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `reportName` (VARCHAR(100), NOT NULLABLE)
-  - `createdBy` (FK to Employees, NOT NULLABLE)
-  - `createdDate` (DATE, NOT NULLABLE)
-  - `lastRunDate` (DATE, NULLABLE)
+  - `report_name` (VARCHAR(100), NOT NULL)
+  - `created_by` (FK to `employees`, NOT NULL)
+  - `created_date` (DATE, NOT NULL)
+  - `last_run_date` (DATE, NULL)
 
 ---
 
-### **Access Control**
-- **Primary Key**: `accessID` (AUTO_INCREMENT, NOT NULLABLE)
+### **access_control**
+- **Primary Key**: `access_id` (AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `employeeID` (FK to Employees, NOT NULLABLE)
-  - `role` (ENUM: `Admin`, `Manager`, `Employee`, NOT NULLABLE)
-  - `lastLogin` (DATETIME, NULLABLE)
-  - `permissions` (JSON, NULLABLE)
+  - `employee_id` (FK to `employees`, NOT NULL)
+  - `role` (ENUM: `admin`, `manager`, `employee`, NOT NULL)
+  - `last_login` (DATETIME, NULL)
+  - `permissions` (JSON, NULL)
 
 ---
 
-### **Audit Logs**
-- **Primary Key**: `logID` (AUTO_INCREMENT, NOT NULLABLE)
+### **audit_logs**
+- **Primary Key**: `log_id` (AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `entityName` (VARCHAR(50), NOT NULLABLE)
-  - `actionType` (ENUM: `Insert`, `Update`, `Delete`, NOT NULLABLE)
-  - `actionTimestamp` (DATETIME, NOT NULLABLE)
-  - `performedBy` (FK to Employees, NOT NULLABLE)
-  - `details` (TEXT, NULLABLE)
+  - `entity_name` (VARCHAR(50), NOT NULL)
+  - `action_type` (ENUM: `insert`, `update`, `delete`, NOT NULL)
+  - `action_timestamp` (DATETIME, NOT NULL)
+  - `performed_by` (FK to `employees`, NOT NULL)
+  - `details` (TEXT, NULL)
 
 ---
 
 ## **Relationships Summary**
 | **Source Table**         | **Destination Table**        | **Relationship Type**             | **Required?**      |
-|---------------------------|------------------------------|------------------------------------|--------------------|
-| Employees                 | Departments                 | One-to-Many                       | Yes                |
-| Employees                 | Roles                       | One-to-Many                       | Yes                |
-| Employees                 | Employees (Self-Referencing)| One-to-Many                       | No                 |
-| Departments               | Regional Offices            | One-to-Many                       | Yes                |
-| Departments               | Projects                    | One-to-Many                       | Yes                |
-| Departments               | Training Sessions           | One-to-Many                       | Yes                |
-| Employees                 | Employee Training           | One-to-Many                       | Yes                |
-| Training Sessions         | Employee Training           | One-to-Many                       | Yes                |
-| Projects                  | Employee Projects           | One-to-Many                       | Yes                |
-| Employees                 | Employee Projects           | One-to-Many                       | Yes                |
-| Employees                 | Employee Benefits           | One-to-Many                       | Yes                |
-| Benefits                  | Employee Benefits           | One-to-Many                       | Yes                |
-| Employees                 | Payroll                     | One-to-Many                       | Yes                |
-| Employees                 | Time Tracking               | One-to-Many                       | Yes                |
-| Projects                  | Time Tracking               | One-to-Many                       | Yes                |
-| Employees                 | Leave Management            | One-to-Many                       | Yes                |
-| Employees                 | Performance Reviews         | One-to-Many                       | Yes                |
-| Employees                 | Assets                      | One-to-Many                       | No                 |
-| Employees                 | Workflow Logs               | One-to-Many                       | Yes                |
-| Employees                 | Scheduled Tasks             | One-to-Many                       | Yes                |
-| Employees                 | Audit Logs                  | One-to-Many                       | Yes                |
-| Workflow Logs             | Employees                   | Many-to-One                       | Yes                |
-| Reports                   | Employees                   | Many-to-One                       | Yes                |
-| Scheduled Tasks           | Employees                   | Many-to-One                       | Yes                |
+|--------------------------|------------------------------|-----------------------------------|--------------------|
+| employees                | departments                  | One-to-Many                       | Yes                |
+| employees                | roles                        | One-to-Many                       | Yes                |
+| employees                | employees (Self-Referencing) | One-to-Many                       | No                 |
+| departments              | regional_offices             | One-to-Many                       | Yes                |
+| departments              | projects                     | One-to-Many                       | Yes                |
+| departments              | training_sessions            | One-to-Many                       | Yes                |
+| employees                | employee_training            | One-to-Many                       | Yes                |
+| training_sessions        | employee_training            | One-to-Many                       | Yes                |
+| employees                | training_sessions            | Many-to-Many (`employee_training`)| Yes                |
+| projects                 | employee_projects            | One-to-Many                       | Yes                |
+| employees                | employee_projects            | One-to-Many                       | Yes                |
+| employees                | projects                     | Many-to-Many (`employee_projects`)| Yes                |
+| employees                | employee_benefits            | One-to-Many                       | Yes                |
+| benefits                 | employee_benefits            | One-to-Many                       | Yes                |
+| employees                | benefits                     | Many-to-Many (`employee_benefits`)| Yes                |
+| employees                | payroll                      | One-to-Many                       | Yes                |
+| employees                | time_tracking                | One-to-Many                       | Yes                |
+| projects                 | time_tracking                | One-to-Many                       | Yes                |
+| employees                | leave_management             | One-to-Many                       | Yes                |
+| employees                | performance_reviews          | One-to-Many                       | Yes                |
+| employees                | assets                       | One-to-Many                       | No                 |
+| employees                | workflow_logs                | One-to-Many                       | Yes                |
+| employees                | scheduled_tasks              | One-to-Many                       | Yes                |
+| employees                | audit_logs                   | One-to-Many                       | Yes                |
+| workflow_logs            | employees                    | Many-to-One                       | Yes                |
+| reports                  | employees                    | Many-to-One                       | Yes                |
+| scheduled_tasks          | employees                    | Many-to-One                       | Yes                |
 
 ---
 
