@@ -123,7 +123,7 @@ The database is designed to store detailed information about employees, departme
 
 ## **Development**
 
-### **Employee Table Implementation**
+### **employees Table Implementation**
 The **employees** table includes the following columns:
 - `employee_id`, `first_name`, `last_name`, `email`, `phone`, `hire_date`, `department_id`, `role_id`, `manager_id`, `status`, `address`.
 
