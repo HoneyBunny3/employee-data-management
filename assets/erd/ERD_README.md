@@ -26,55 +26,56 @@ The ERD visualizes the relational structure of the database. Below is a descript
 ## **Entity Descriptions and Attributes**
 
 ### **employees**
-- **Primary Key**: `employee_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `employee_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `first_name` (VARCHAR(50), NOT NULL)
   - `last_name` (VARCHAR(50), NOT NULL)
+  - `date_of_birth` (DATE, NOT NULL)
+  - `address` (VARCHAR(200), NULL)
   - `email` (VARCHAR(100), UNIQUE, NOT NULL)
   - `phone` (VARCHAR(15), NULL)
   - `hire_date` (DATE, NOT NULL)
   - `job_title` (VARCHAR(50), NOT NULL)
   - `status` (ENUM: `active`, `inactive`, NOT NULL)
-  - `address` (VARCHAR(255), NULL)
 - **Foreign Keys**:
-  - `department_id` (FK to `departments`, NOT NULL)
-  - `role_id` (FK to `roles`, NOT NULL)
-  - `manager_id` (Self-referencing FK to `employees`, NULL for top-level managers)
+  - `department_id` (INT, FK to `departments`, NOT NULL)
+  - `role_id` (INT, FK to `roles`, NOT NULL)
+  - `manager_id` (INT, Self-referencing FK to `employees`, NULL for top-level managers)
 
 ---
 
 ### **departments**
-- **Primary Key**: `department_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `department_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `department_name` (VARCHAR(100), NOT NULL)
 - **Foreign Keys**:
-  - `location_id` (FK to `regional_offices`, NOT NULL)
-  - `manager_id` (FK to `employees`, NULL)
+  - `location_id` (INT, FK to `regional_offices`, NOT NULL)
+  - `manager_id` (INT, FK to `employees`, NULL)
 
 ---
 
 ### **regional_offices**
-- **Primary Key**: `office_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `office_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `region_name` (VARCHAR(50), NOT NULL)
   - `country` (VARCHAR(50), NOT NULL)
+  - `address` (VARCHAR(200), NOT NULL)
   - `currency` (VARCHAR(10), NOT NULL)
-  - `address` (VARCHAR(255), NOT NULL)
 
 ---
 
 ### **roles**
-- **Primary Key**: `role_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `role_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `role_name` (VARCHAR(50), NOT NULL)
+  - `description` (TEXT, NULL)
   - `salary_range_min` (DECIMAL(10, 2), NOT NULL)
   - `salary_range_max` (DECIMAL(10, 2), NOT NULL)
-  - `description` (TEXT, NULL)
 
 ---
 
 ### **training_sessions**
-- **Primary Key**: `training_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `training_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `topic` (VARCHAR(100), NOT NULL)
   - `description` (TEXT, NULL)
@@ -82,23 +83,23 @@ The ERD visualizes the relational structure of the database. Below is a descript
   - `duration` (INT, NOT NULL, in hours)
   - `instructor` (VARCHAR(100), NULL)
 - **Foreign Key**:
-  - `department_id` (FK to `departments`, NOT NULL)
+  - `department_id` (INT, FK to `departments`, NOT NULL)
 
 ---
 
 ### **employee_training**
-- **Primary Key**: `employee_training_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `employee_training_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `completion_status` (ENUM: `completed`, `pending`, `failed`, NOT NULL)
   - `date_completed` (DATE, NULL)
 - **Foreign Keys**:
-  - `employee_id` (FK to `employees`, NOT NULL)
-  - `training_id` (FK to `training_sessions`, NOT NULL)
+  - `employee_id` (INT, FK to `employees`, NOT NULL)
+  - `training_id` (INT, FK to `training_sessions`, NOT NULL)
 
 ---
 
 ### **benefits**
-- **Primary Key**: `benefit_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `benefit_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `benefit_name` (VARCHAR(100), NOT NULL)
   - `description` (TEXT, NULL)
@@ -108,41 +109,41 @@ The ERD visualizes the relational structure of the database. Below is a descript
 ---
 
 ### **employee_benefits**
-- **Primary Key**: `employee_benefit_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `employee_benefit_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `enrollment_date` (DATE, NOT NULL)
   - `status` (ENUM: `active`, `inactive`, NOT NULL)
 - **Foreign Keys**:
-  - `employee_id` (FK to `employees`, NOT NULL)
-  - `benefit_id` (FK to `benefits`, NOT NULL)
+  - `employee_id` (INT, FK to `employees`, NOT NULL)
+  - `benefit_id` (INT, FK to `benefits`, NOT NULL)
 
 ---
 
 ### **projects**
-- **Primary Key**: `project_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `project_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `project_name` (VARCHAR(100), NOT NULL)
   - `start_date` (DATE, NOT NULL)
   - `end_date` (DATE, NULL)
   - `budget` (DECIMAL(15, 2), NULL)
 - **Foreign Key**:
-  - `department_id` (FK to `departments`, NOT NULL)
+  - `department_id` (INT, FK to `departments`, NOT NULL)
 
 ---
 
 ### **employee_projects**
-- **Primary Key**: `employee_project_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `employee_project_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `role_in_project` (VARCHAR(100), NULL)
+  - `project_role` (VARCHAR(100), NULL)
   - `hours_allocated` (DECIMAL(5, 2), NULL)
 - **Foreign Keys**:
-  - `employee_id` (FK to `employees`, NOT NULL)
-  - `project_id` (FK to `projects`, NOT NULL)
+  - `employee_id` (INT, FK to `employees`, NOT NULL)
+  - `project_id` (INT, FK to `projects`, NOT NULL)
 
 ---
 
 ### **payroll**
-- **Primary Key**: `payroll_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `payroll_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `payment_date` (DATE, NOT NULL)
   - `gross_salary` (DECIMAL(10, 2), NOT NULL)
@@ -150,72 +151,60 @@ The ERD visualizes the relational structure of the database. Below is a descript
   - `net_salary` (DECIMAL(10, 2), NOT NULL)
   - `payment_status` (ENUM: `processed`, `failed`, NOT NULL)
 - **Foreign Key**:
-  - `employee_id` (FK to `employees`, NOT NULL)
+  - `employee_id` (INT, FK to `employees`, NOT NULL)
 
 ---
 
 ### **time_tracking**
-- **Primary Key**: `time_entry_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `time_entry_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `date` (DATE, NOT NULL)
   - `hours_worked` (DECIMAL(5, 2), NOT NULL)
   - `task_description` (TEXT, NULL)
 - **Foreign Keys**:
-  - `employee_id` (FK to `employees`, NOT NULL)
-  - `project_id` (FK to `projects`, NOT NULL)
+  - `employee_id` (INT, FK to `employees`, NOT NULL)
+  - `project_id` (INT, FK to `projects`, NOT NULL)
 
 ---
 
 ### **leave_management**
-- **Primary Key**: `leave_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `leave_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `leave_type` (ENUM: `sick`, `vacation`, `unpaid`, `other`, NOT NULL)
   - `start_date` (DATE, NOT NULL)
   - `end_date` (DATE, NOT NULL)
   - `approval_status` (ENUM: `approved`, `pending`, `rejected`, NOT NULL)
 - **Foreign Key**:
-  - `employee_id` (FK to `employees`, NOT NULL)
+  - `employee_id` (INT, FK to `employees`, NOT NULL)
 
 ---
 
 ### **performance_reviews**
-- **Primary Key**: `review_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `review_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `review_date` (DATE, NOT NULL)
   - `overall_score` (DECIMAL(4, 2), NULL)
   - `comments` (TEXT, NULL)
 - **Foreign Keys**:
-  - `employee_id` (FK to `employees`, NOT NULL)
-  - `manager_id` (FK to `employees`, NOT NULL)
+  - `employee_id` (INT, FK to `employees`, NOT NULL)
+  - `manager_id` (INT, FK to `employees`, NOT NULL)
 
 ---
 
 ### **assets**
-- **Primary Key**: `asset_id` (AUTO_INCREMENT, NOT NULLABLE)
+- **Primary Key**: `asset_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `asset_name` (VARCHAR(100), NOT NULLABLE)
-  - `asset_type` (ENUM: `Desktop`, `Laptop`, `Tablet`, `Phone`, NOT NULLABLE)
-  - `purchase_date` (DATE, NOT NULLABLE)
-  - `assign_to` (FK to employees, NULLABLE)
-  - `status` (ENUM: `Assigned`, `Available`, `Maintenance`, `Retired`, NOT NULLABLE)
-
----
-
-### **workflow_logs**
-- **Primary Key**: `workflow_id` (AUTO_INCREMENT, NOT NULL)
-- **Attributes**:
-  - `entity_name` (VARCHAR(50), NOT NULL)
-  - `entity_id` (INT, NOT NULL)
-  - `action_type` (ENUM: `create`, `update`, `delete`, NOT NULL)
-  - `status` (ENUM: `active`, `inactive`, NOT NULL)
-  - `timestamp` (DATETIME, NOT NULL)
+  - `asset_name` (VARCHAR(100), NOT NULL)
+  - `asset_type` (ENUM: `Desktop`, `Laptop`, `Tablet`, `Phone`, NOT NULL)
+  - `purchase_date` (DATE, NOT NULL)
+  - `status` (ENUM: `Assigned`, `Available`, `Maintenance`, `Retired`, NOT NULL)
 - **Foreign Key**:
-  - `performed_by` (FK to `employees`, NOT NULL)
+  - `assign_to` (INT, FK to employees, NULLABLE)
 
 ---
 
 ### **scheduled_tasks**
-- **Primary Key**: `task_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `task_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `task_name` (VARCHAR(100), NOT NULL)
   - `frequency` (ENUM: `daily`, `weekly`, `monthly`, `yearly`, NOT NULL)
@@ -225,34 +214,50 @@ The ERD visualizes the relational structure of the database. Below is a descript
 
 ---
 
+### **workflow_logs**
+- **Primary Key**: `workflow_id` (INT, AUTO_INCREMENT, NOT NULL)
+- **Attributes**:
+  - `entity_name` (VARCHAR(50), NOT NULL)
+  - `entity_id` (INT, NOT NULL)
+  - `action_type` (ENUM: `create`, `update`, `delete`, NOT NULL)
+  - `status` (ENUM: `active`, `inactive`, NOT NULL)
+  - `timestamp` (DATETIME, NOT NULL)
+- **Foreign Key**:
+  - `performed_by` (INT, FK to `employees`, NOT NULL)
+
+---
+
 ### **reports**
-- **Primary Key**: `report_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `report_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `report_name` (VARCHAR(100), NOT NULL)
-  - `created_by` (FK to `employees`, NOT NULL)
   - `created_date` (DATE, NOT NULL)
   - `last_run_date` (DATE, NULL)
+- **Foreign Key**:
+  - `created_by` (INT, FK to `employees`, NOT NULL)
 
 ---
 
 ### **access_control**
-- **Primary Key**: `access_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `access_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
-  - `employee_id` (FK to `employees`, NOT NULL)
   - `role` (ENUM: `admin`, `manager`, `employee`, NOT NULL)
-  - `last_login` (DATETIME, NULL)
   - `permissions` (JSON, NULL)
+  - `last_login` (DATETIME, NULL)
+- **Foreign Key**:
+  - `employee_id` (INT, FK to `employees`, NOT NULL)
 
 ---
 
 ### **audit_logs**
-- **Primary Key**: `log_id` (AUTO_INCREMENT, NOT NULL)
+- **Primary Key**: `log_id` (INT, AUTO_INCREMENT, NOT NULL)
 - **Attributes**:
   - `entity_name` (VARCHAR(50), NOT NULL)
   - `action_type` (ENUM: `insert`, `update`, `delete`, NOT NULL)
-  - `action_timestamp` (DATETIME, NOT NULL)
-  - `performed_by` (FK to `employees`, NOT NULL)
   - `details` (TEXT, NULL)
+  - `action_timestamp` (DATETIME, NOT NULL)
+- **Foreign Key**:
+  - `performed_by` (INT, FK to `employees`, NOT NULL)
 
 ---
 
