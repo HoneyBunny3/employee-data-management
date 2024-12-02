@@ -211,6 +211,8 @@ The ERD visualizes the relational structure of the database. Below is a descript
   - `last_run_date` (DATE, NULL)
   - `next_run_date` (DATE, NULL)
   - `status` (ENUM: `active`, `inactive`, NOT NULL)
+- **Foreign Key**:
+  - `employee_id` (INT, FK to employees, NOT NULL)
 
 ---
 
