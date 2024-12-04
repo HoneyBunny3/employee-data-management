@@ -1,0 +1,16 @@
+﻿office_id,region_name,country,address,currency
+1,Africa,South Africa,"404 Nelson Mandela Blvd, Cape Town",ZAR
+2,Asia,India,"789 MG Road, Mumbai",INR
+3,Central America,Mexico,"505 Reforma, Mexico City",MXN
+4,East Asia,Japan,"606 Akihabara, Tokyo",JPY
+5,Eastern Europe,Poland,"808 Nowy Swiat, Warsaw",PLN
+6,Europe,UK,"456 High St, London",GBP
+7,Middle East,UAE,"1010 Sheikh Zayed Rd, Dubai",AED
+8,North America,USA,"123 Main St, New York, NY",USD
+9,Pacific Islands,New Zealand,"1313 Queen St, Auckland",NZD
+10,Scandinavia,Sweden,"707 Drottninggatan, Stockholm",SEK
+11,South America,Brazil,"202 Paulista Ave, São Paulo",BRL
+12,Southern Europe,Spain,"1212 Gran Via, Madrid",EUR
+13,Southeast Asia,Singapore,"909 Orchard Rd, Singapore",SGD
+14,Western Canada,Canada,"1111 Georgia St, Vancouver, BC",CAD
+15,Australia,Australia,"101 George St, Sydney",AUD

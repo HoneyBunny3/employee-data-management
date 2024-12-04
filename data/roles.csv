@@ -1,0 +1,53 @@
+role_id,role_name,description,salary_range_min,salary_range_max
+,Chief Executive Officer,Leads the company,200000.0,500000.0
+,Chief Financial Officer,Manages company finances,180000.0,450000.0
+,Chief Human Resources Officer,Oversees HR strategies,150000.0,400000.0
+,Chief Marketing Officer,Directs marketing efforts,160000.0,420000.0
+,Chief Operating Officer,Oversees daily operations,170000.0,430000.0
+,Chief Security Officer,Manages security strategies,160000.0,420000.0
+,Chief Technology Officer,Oversees technology and innovation,170000.0,430000.0
+,Director of Business Development,Expands company business opportunities,120000.0,250000.0
+,Director of Customer Services,Leads customer service operations,110000.0,220000.0
+,Director of Finance,Oversees financial planning,130000.0,260000.0
+,Director of Human Resources,Manages HR policies and initiatives,120000.0,240000.0
+,Director of Information Technology,Manages IT infrastructure and strategies,125000.0,250000.0
+,Director of Operations,Oversees operational processes,140000.0,280000.0
+,Director of Sales,Leads sales strategy and team,110000.0,200000.0
+,Marketing Manager,Manages marketing campaigns and teams.,75000.0,120000.0
+,Media Manager,Oversees media planning and execution.,70000.0,115000.0
+,Information Systems Manager,Manages information systems and their development.,90000.0,130000.0
+,Human Resources Manager,Leads HR teams and initiatives.,80000.0,120000.0
+,Internal Auditor,Reviews and audits internal processes.,60000.0,90000.0
+,Assistant Manager,Assists in managing department operations.,50000.0,75000.0
+,Business Analyst,Analyzes business processes and strategies.,65000.0,85000.0
+,Senior Business Analyst,Leads analysis for complex business strategies.,85000.0,110000.0
+,Accountant,Manages financial records and compliance.,55000.0,75000.0
+,Senior Accountant,Oversees complex accounting tasks and team guidance.,75000.0,100000.0
+,Senior Cost Accountant,Specializes in cost accounting and analysis.,80000.0,105000.0
+,Cybersecurity Analyst,Protects systems against cybersecurity threats.,85000.0,120000.0
+,Information Security Officer,Manages security protocols and policies.,95000.0,130000.0
+,Database Administrator,Maintains and manages databases.,75000.0,95000.0
+,Senior Database Administrator,Oversees database infrastructure and strategy.,95000.0,125000.0
+,Data Coordinator,Manages and organizes data-related tasks.,50000.0,70000.0
+,Software Developer I,Entry-level software development.,60000.0,80000.0
+,Software Developer II,Intermediate software development.,80000.0,100000.0
+,Software Developer III,Advanced software development.,100000.0,130000.0
+,Software Developer IV,Expert-level software development and leadership.,130000.0,160000.0
+,Engineer I,Entry-level engineering tasks.,65000.0,85000.0
+,Engineer II,Intermediate engineering responsibilities.,85000.0,105000.0
+,Engineer III,Advanced engineering projects.,105000.0,130000.0
+,Engineer IV,Expert-level engineering and leadership.,130000.0,160000.0
+,Administrative Assistant,Provides administrative support to teams.,30000.0,45000.0
+,Executive Administrative Assistant,Provides administrative support to executives.,45000.0,60000.0
+,Desktop Support Technician I,Entry-level desktop support.,35000.0,45000.0
+,Desktop Support Technician II,Intermediate desktop support.,45000.0,55000.0
+,Desktop Support Technician III,Advanced desktop support.,55000.0,70000.0
+,Desktop Support Technician IV,Expert desktop support and troubleshooting.,70000.0,90000.0
+,Account Coordinator,Coordinates client accounts.,40000.0,60000.0
+,Account Executive,Manages key client accounts.,60000.0,80000.0
+,Account Representative I,Entry-level client account management.,35000.0,45000.0
+,Account Representative II,Intermediate account management.,45000.0,55000.0
+,Account Representative III,Advanced account management.,55000.0,70000.0
+,Account Representative IV,Expert-level account management.,70000.0,90000.0
+,Sales Associate,Entry-level sales tasks.,30000.0,40000.0
+,Sales Representative,Manages client sales.,40000.0,60000.0

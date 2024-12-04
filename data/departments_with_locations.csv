@@ -1,0 +1,9 @@
+department_id,department_name,location_id,manager_id
+1,Accounting and Finance,15,
+2,Administration,2,
+3,Business Analysis,13,
+4,IT and Technology,6,
+5,Human Resources,14,
+6,Marketing and Media,4,
+7,Sales,11,
+8,Executive Leadership,5,
