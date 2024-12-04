@@ -8,3 +8,4 @@ I used https://www.mockaroo.com to generate a large amount of random data to fil
 
 I also used the Faker Python library to generate a small number of records.
 
+## **Steps Taken**
